@@ -16,6 +16,7 @@ public class ClientListener extends Thread{
         // TODO Auto-generated method stub
         try {
             server = new ServerSocket(5051);
+            System.out.println("Server started on port 5051. Waiting connections...");
             while (true)
             {
                 socket = null;
@@ -39,5 +40,4 @@ public class ClientListener extends Thread{
             e1.printStackTrace();
         }
     }
-
 }

@@ -33,6 +33,15 @@ public class Client {
         return null;
     }
 
+    public static void displayMenu() {
+        System.out.println("\nPress a number to select an option. Your next action will be:");
+        System.out.println("1. Upload a file");
+        System.out.println("2. See all your files");
+        System.out.println("3. Download a file");
+        System.out.println("4. Exit");
+        System.out.print("Insert option:");
+    }
+
 
     public static void main(String [] args) {
 
@@ -51,9 +60,21 @@ public class Client {
         // TODO -> create a web client for this part
         System.out.println("Start saving your files:");
         while(true) {
+            displayMenu();
             try {
-                if(fileDriver.handleQuery(input.readLine()) == false) {
-                    return;
+                String usersOption = input.readLine();
+                switch(usersOption.trim()){
+                    case "1":
+                        fileDriver.handleUpload();
+                        break;
+                    case "2":
+                        fileDriver.handleDisplayFiles();
+                        break;
+                    case "3":
+                        fileDriver.handleDownloadFile();
+                        break;
+                    case "4":
+                        return;
                 }
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());

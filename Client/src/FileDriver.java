@@ -1,9 +1,12 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import javax.swing.*;
 
 public class FileDriver {
     private String       username;
@@ -20,7 +23,7 @@ public class FileDriver {
         this.password =        pass;
         this.url =             url; // "host:port"
         host = url.split(":")[0];
-        port = Integer.parseInt(url.substring(url.indexOf(':')+1, url.length() - 1));
+        port = Integer.parseInt(url.substring(url.indexOf(':')+1, url.length()));
     }
 
     public String getUsername() {
@@ -46,6 +49,7 @@ public class FileDriver {
     public boolean connect(){
         boolean result = false;
         try {
+            System.out.println("Try to connect with: " + host + ":" + port);
             socket = new Socket(host ,port);
             System.out.println("Connected with " + host + ":" + port);
 
@@ -99,4 +103,20 @@ public class FileDriver {
 
     }
 
+    public void handleUpload() {
+        System.out.println("handle Upload");
+        JFileChooser jfc = new JFileChooser();
+        jfc.showDialog(null,"Please Select the File");
+        jfc.setVisible(true);
+        File filename = jfc.getSelectedFile();
+        System.out.println("File name " + filename.getName());
+    }
+
+    public void handleDisplayFiles() {
+        System.out.println("handleDisplayFiles();");
+    }
+
+    public void handleDownloadFile() {
+        System.out.println("handleDownloadFile();");
+    }
 }
