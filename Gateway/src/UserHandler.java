@@ -78,20 +78,18 @@ public class UserHandler extends Thread implements Responder {
         if(connected == false) {
             return;
         }
-        while(true) {
-            while (!query.equals("exit")) {
-                try {
-                    query = inFromClient.readUTF();
-                    System.out.println("User sent:" + query);
-                    Task task = new Task(query, user);
-                    lb.addTaskToQueue(task, this);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    System.out.println("The connection with this user was lost: " + user.getUsername());
-                    return;
-                }
+        while (!query.equals("exit")) {
+            try {
+                query = inFromClient.readUTF();
+                System.out.println("User sent:" + query);
+                Task task = new Task(query, user);
+                lb.addTaskToQueue(task, this);
+            } catch (IOException e) {
+                System.out.println("The connection with this user was lost: " + user.getUsername());
+                return;
             }
         }
+        System.out.println("The connection with this user was closed: " + user.getUsername());
     }
 
     @Override

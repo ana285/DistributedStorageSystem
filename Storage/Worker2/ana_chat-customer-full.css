@@ -1,0 +1,268 @@
+/* Conversation Widget Customer Specific  */
+
+.chat-convo .chat-line .chat-time {
+    /* do not show timestamp to customers */
+    display: none;
+}
+
+
+/* Chat Flow */
+
+.chat-flow {
+    width:500px;
+    height:400px;
+    position: relative;
+    padding:0;
+    font-size: 11px;
+    font-family: Verdana,Arial,"Helvetica Neue",Helvetica,sans-serif;
+}
+
+.chat-flow .chat-flow-header {
+    left:0;
+    top:0;
+    width:100%;    
+}
+
+.chat-flow .chat-flow-banner {
+    float: left;
+    color: #E47911;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 24px;
+
+    /* cancel out dashboard style */
+    font-weight: normal;
+}
+
+.chat-flow a {
+    /* cancel out dashboard style */
+    text-decoration: underline;
+    font-weight: normal;
+    color: blue;
+}
+
+.chat-flow a.chat-flow-closer {
+    float: right;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.chat-flow a.chat-flow-closer:hover {
+    /* cancel out dashboard style */
+    background: none;
+    cursor: pointer;
+}
+
+.chat-flow .chat-flow-main {
+    position: relative;
+    clear:both;
+    border-top: 1px solid #C9E1F4;
+}
+
+
+.chat-flow .chat-flow-footer {
+    position: absolute;
+    top: 375px;
+    left: 0;
+    width: 100%;
+
+    border-top: 1px solid #C9E1F4;
+    
+    padding-top: 6px;
+
+
+    clear:both;
+    font-size: 90%;
+}
+
+.chat-flow .chat-flow-connection-status {
+    margin-right: 6px;
+    float: right;
+}
+
+.chat-flow .chat-flow-agent-status {
+    margin-left: 6px;
+    float: left;
+}
+
+.chat-flow .chat-flow-main .chat-flow-inner-topper {
+    padding: 20px 0 0 10px;
+}
+
+.chat-flow .chat-flow-main .chat-flow-top-greeting {
+    padding: 20px 0 5px 10px;
+}
+
+.chat-flow .chat-flow-main .chat-flow-byline {
+    margin-bottom: 10px;
+}
+
+.chat-flow .chat-flow-field-blocks {
+    left: -10px;
+    width: 100%;
+    background: #EAF3FE;
+}
+
+.chat-flow .chat-field-block {
+    border-top: 1px solid #C9E1F4;
+/*    background: #EAF3FE; */
+    clear: both;
+    padding-top: 5px;
+}
+
+.chat-flow .chat-field-block .chat-label-column {
+    width: 100px;
+    margin: 5px 10px 10px 10px;
+    font-weight: bold;
+    float: left;
+}
+
+.chat-flow .chat-field-block .chat-input-column {
+    float:left;
+    margin: 5px 0 0 0;
+}
+
+.chat-flow .chat-field-block .chat-modifier-column {
+    float:right;
+    margin: 5px 5px 0 0;
+}
+
+.chat-flow .chat-field-block .chat-edit-name {
+    float:right;
+}
+
+.chat-flow-default-modal {
+    background: #fff;
+    
+}
+.chat-flow .chat-end-field-block,
+.chat-flow .chat-flow-end-button-row
+{
+    clear: both;
+}
+
+.chat-flow .chat-required-mark {
+    color: #900;
+}
+
+.chat-flow .chat-flow-required-fields-note {
+    color: #900;
+    margin-bottom: 2px;
+}
+.chat-flow .chat-input-column input {
+    width: 300px;
+}
+
+.chat-flow .chat-input-column textarea {
+    width: 300px;
+    height: 70px;
+}
+
+
+
+
+
+.chat-flow .chat-input-column ul.chat-issues-list {
+    margin: 0 0 10px 0;
+    padding: 0 0 0 12px;
+    
+}
+
+.chat-flow .chat-flow-button-row {
+    clear:both;
+    width: 100%;
+    background: #EAF3FE;
+    padding: 10px 0 10px 0;
+}
+
+.chat-flow .chat-flow-start {
+    margin-left: 120px;
+}
+
+.chat-flow .chat-flow-cancel {
+    margin-left: 15px;
+}
+
+
+
+.chat-flow-main-no-issues .chat-field-block .chat-label-column {
+    float: none;
+    width: auto:
+}
+.chat-flow-main-no-issues .chat-field-block .chat-input-column {
+    float: none;
+    display: block;
+    padding-left: 10px;
+}
+.chat-flow-main-no-issues .chat-field-block .chat-input-column textarea {
+    width: 90%;
+}
+
+
+
+.chat-flow-main-no-issues .chat-flow-buttons {
+    clear:both;
+    float: right;
+    margin-right: 10%;
+}
+
+.chat-flow-main-no-issues .chat-flow-start {
+    margin-left: 0;
+}
+
+.chat-flow-main-no-issues .chat-flow-cancel {
+    margin-left: 15px;
+}
+
+
+.chat-flow .chat-flow-top-greeting .chat-cust-name {
+    font-weight: bold;
+}
+
+
+.chat-flow .chat-field-in-error {
+    background: #fdd;
+}
+
+.chat-flow .chat-field-error {
+    color: #900;
+    clear: left;
+}
+
+.chat-flow .chat-flow-connecting-message {
+    position: relative;
+    top: 150px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.chat-flow .chat-flow-call-me-widget {
+    margin: 30px 0 0 0;
+    padding: 20px 0 20px 70px;
+    width: 430px;
+    /* background: #EAF3FE; */
+}
+
+.chat-flow-thankYou .chat-flow-main {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.chat-flow-thankYou .chat-flow-thank-you-message {
+    font-size: 200%;
+    margin-top: 50px;
+}
+
+.chat-flow-thankYou a.chat-flow-closer {
+    display: none;
+}
+
+.chat-flow-default-modal {
+    background: #fff;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    padding-top: 50px;
+    width: 500px;
+    height: 285px;
+}
+

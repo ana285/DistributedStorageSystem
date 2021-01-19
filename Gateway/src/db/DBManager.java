@@ -24,7 +24,7 @@ public class DBManager {
     final private MongoDatabase             database;
     final private MongoCollection<Document> usersCollection;
     final private MongoCollection<Document> workersCollection;
-    final private MongoCollection<Document> databasesCollection;
+    final private MongoCollection<Document> mappingCollection;
 
     public static DBManager getInstance() {
         if(null == instance) {
@@ -40,7 +40,7 @@ public class DBManager {
 
         usersCollection =   database.getCollection("users");
         workersCollection = database.getCollection("workers");
-        databasesCollection = database.getCollection("mappingFile");
+        mappingCollection = database.getCollection("mappingFile");
     }
 
     public boolean addUser(User user) {
@@ -66,21 +66,53 @@ public class DBManager {
         }
     }
 
+    public WorkerMinimalConnData getWorker(String name) {
+        Document doc = workersCollection.find(eq("name", name)).first();
+        if (doc == null) {
+            return null;
+        } else {
+            return gson.fromJson(processIdJsonForGson(doc.toJson()), WorkerMinimalConnData.class);
+        }
+    }
+
     private String processIdJsonForGson(String json) {
         return json.replaceAll("\\Q{ \"$oid\" : \"\\E([a-zA-Z0-9]+)\\Q\" }\\E", "\"$1\"");
     }
 
-    public List<WorkerMinimalConnData> getWorkers() {
-        return getList(null, workersCollection, WorkerMinimalConnData.class);
+    public List<WorkerConnectionData> getWorkers() {
+        return getList(null, workersCollection, WorkerConnectionData.class, "_id");
     }
 
-    private <T> List<T> getList(String workerId, MongoCollection<Document> collection, Class<T> clasz) {
+    public List<WorkerMinimalConnData> getMinimalWorkers() {
+        return getList(null, workersCollection, WorkerMinimalConnData.class, "_id");
+    }
+
+    private <T> List<T> getList(String workerId, MongoCollection<Document> collection, Class<T> clasz, String fieldName) {
         List<T> list = new ArrayList<T>();
         MongoCursor<Document> cursor;
         if (workerId == null) {
             cursor = collection.find().iterator();
         } else {
-            cursor = collection.find(eq("_id", workerId)).iterator();
+            cursor = collection.find(eq(fieldName, workerId)).iterator();
+        }
+        try {
+            while (cursor.hasNext()) {
+                String json = cursor.next().toJson();
+                list.add(gson.fromJson(processIdJsonForGson(json), clasz));
+            }
+        } finally {
+            cursor.close();
+        }
+        return list;
+    }
+
+    private <T> List<T> getListStartsWith(String fieldPattern, MongoCollection<Document> collection, Class<T> clasz, String fieldName) {
+        List<T> list = new ArrayList<T>();
+        MongoCursor<Document> cursor;
+        if (fieldPattern == null) {
+            cursor = collection.find().iterator();
+        } else {
+            cursor = collection.find(regex(fieldName, fieldPattern, "i")).iterator();
         }
         try {
             while (cursor.hasNext()) {
@@ -114,4 +146,30 @@ public class DBManager {
         workersCollection.deleteOne(Filters.eq("name", name));
     }
 
+    public List<String> getWorkerNamesForFile(String mappingId) {
+        List<MappingInfo> mapping = getList(mappingId, mappingCollection, MappingInfo.class, "mappingId");
+        List<String> workers = new ArrayList<>();
+        for(MappingInfo map : mapping) {
+            workers.add(map.getWorker());
+        }
+        return  workers;
+    }
+
+    public List<MappingInfo> getWorkersForFile(String mappingId) {
+        return getList(mappingId, mappingCollection, MappingInfo.class, "mappingId");
+    }
+
+    public List<String> getUsedWorkerNames(String username) {
+        List<MappingInfo> mapping = getListStartsWith(username + "_.*", mappingCollection, MappingInfo.class, "mappingId");
+        List<String> workers = new ArrayList<>();
+        for(MappingInfo map : mapping) {
+            workers.add(map.getWorker());
+            System.out.println("Used worker for " + username + ": " + map.getWorker());
+        }
+        return  workers;
+    }
+
+    public List<MappingInfo> getUsedWorkers(String username) {
+        return getListStartsWith(username + "_.*", mappingCollection, MappingInfo.class, "mappingId");
+    }
 }

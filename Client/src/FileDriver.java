@@ -3,6 +3,12 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+import Core.ClientTask;
+import Core.WorkerMinimalConnData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -110,6 +116,22 @@ public class FileDriver {
         jfc.setVisible(true);
         File filename = jfc.getSelectedFile();
         System.out.println("File name " + filename.getName());
+
+        String query = "save " + filename.getName();
+        String response;
+        try {
+            outputMessageForServer.writeUTF(query);
+            System.out.println("Message sent to the server: " + query);
+            response = inputStreamFromServer.readUTF();
+            Gson gson = new GsonBuilder().create();
+            ClientTask task = gson.fromJson(response, ClientTask.class);
+            task.setUsername(username);
+            System.out.println("What I received: " + task.toString());
+            handleUploadTask(task, filename.getAbsolutePath());
+        } catch (IOException e) {
+           System.out.println("Something went wrong while trying to save the file.");
+        }
+
     }
 
     public void handleDisplayFiles() {
@@ -118,5 +140,49 @@ public class FileDriver {
 
     public void handleDownloadFile() {
         System.out.println("handleDownloadFile();");
+    }
+
+    public void handleUploadTask(ClientTask task, String absolutePath){
+        List<WorkerMinimalConnData> workers = task.getWorkersToSave();
+        if(workers.size() > 0) {
+            WorkerMinimalConnData mainWorker = workers.get(0);
+            // task.removeWorkerFromList(0);
+            try {
+                System.out.println("Try to connect with: " + mainWorker.getAddress() + ":" + mainWorker.getPort());
+                socket = new Socket(mainWorker.getAddress(), mainWorker.getPort());
+                System.out.println("Connected with " + mainWorker.getAddress() + ":" + mainWorker.getPort());
+
+                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+                DataInputStream input = new DataInputStream(socket.getInputStream());
+
+                task.setType("save");
+
+                Gson gson = new GsonBuilder().create();
+                String jsonText = gson.toJson(task);
+                output.writeUTF(jsonText);
+                System.out.println("Sent the task");
+
+                String response = input.readUTF();
+                if(response.equals("ACK")){
+                    System.out.println("Let's send the file :)");
+
+                    // TODO send in chunks of bytes
+                    String data = "";
+                    data = new String(Files.readAllBytes(Paths.get(absolutePath)));
+                    output.writeUTF(data);
+
+                    response = input.readUTF();
+                    if(response.equals("ACK")) {
+                        System.out.println("File was saved successfully.");
+                    }
+                }
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Server returned no workers to save the file on!");
+        }
     }
 }

@@ -30,17 +30,6 @@ public class WorkerMinimalConnData{
         this.memory = w.memory;
     }
 
-    public WorkerMinimalConnData(WorkerConnectionData w){
-        this.name = w.getName();
-        this.id = w.getId();
-        this.address = w.getAddress();
-        this.port = w.getPort();
-        this.heartbeatPort = w.getHeartbeatPort();
-        this.storage = w.getOcupiedStorage();
-        this.CPU = w.getCPU();
-        this.memory = w.getMemory();
-    }
-
     public String getAddress() {
         return address;
     }

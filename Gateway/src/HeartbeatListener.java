@@ -18,7 +18,7 @@ public class HeartbeatListener extends Thread{
 
     public HeartbeatListener() {
         this.workers = new ArrayList<WorkerMinimalConnData>();
-        this.workers = DBManager.getInstance().getWorkers();
+        this.workers = DBManager.getInstance().getMinimalWorkers();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class HeartbeatListener extends Thread{
         }
 
         while(true) {
-            List<WorkerMinimalConnData> updatedWorkers = DBManager.getInstance().getWorkers();
+            List<WorkerMinimalConnData> updatedWorkers = DBManager.getInstance().getMinimalWorkers();
             List<WorkerMinimalConnData> difference = new ArrayList<>(updatedWorkers);
             difference.removeAll(workers);
             if(difference.size() != 0) {

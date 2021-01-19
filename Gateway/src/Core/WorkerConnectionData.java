@@ -47,6 +47,9 @@ public class WorkerConnectionData implements Comparable<WorkerConnectionData>{
         this.port = w.getPort();
         this.heartbeatPort = w.getHeartbeatPort();
         this.address = w.getAddress();
+        this.CPU = w.getCPU();
+        this.storage = w.getStorage();
+        this.memory = w.getMemory();
     }
 
     public String getAddress() {

@@ -94,9 +94,11 @@ public class Heartbeat extends Thread{
                             File folder = new File("/Users/rusuna/stuff/faculty/M2_S1/PPAD/Project-Storage/Storage/" + workerName);
 
                             Long size = getFolderSize(folder);
+                            // System.out.println("Occupied storage: " + size + " and in double: " + size.doubleValue());
                             info.setOcupiedStorage(size.doubleValue());
                             Double cpu = getCpuLoad() * 100;
                             info.setCPU(cpu);
+                            // System.out.println("Heartbeat info:" + info.toString());
 
                             Gson gson = new Gson();
                             String jsonText = gson.toJson(info);

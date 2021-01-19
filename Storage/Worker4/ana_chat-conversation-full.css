@@ -1,0 +1,127 @@
+/* Alternating colors for participants */
+.chat-participant-style-0 .chat-display-name {
+    color: #f90;
+}
+.chat-participant-style-1 .chat-display-name {
+    color: #146EB4;
+}
+
+
+.chat-convo {
+    background-color: #FFF;
+    color: #000;
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size:   9.5pt;
+}
+
+.chat-convo .chat-line-group {
+    margin-bottom: 10px;
+}
+
+.chat-convo .chat-line {
+    clear: both;
+}
+
+.chat-convo .chat-line .chat-display-name {
+    display: none;
+    float: left;
+}
+.chat-convo .chat-line .chat-message {
+    margin-left: 10px;
+}
+
+.chat-convo .chat-first-line .chat-display-name {
+    display: inline;
+}
+
+.chat-convo .chat-line .chat-time {
+    float: right;
+    color: #aaa;
+}
+
+.chat-convo .chat-input-row {
+    clear: both;
+    width: 100%;
+}
+
+.chat-convo .chat-input-row table {
+    width: 100%;
+}
+
+.chat-convo .chat-roller {
+    height: 260px;
+    padding: 10px 10px 5px 10px;
+}
+
+.chat-frozen .chat-roller {
+    background: #eeeeef;
+}
+
+.chat-minimized .chat-roller {
+    height: 80px;
+    background-color: grey;
+}
+
+.chat-minimized .chat-input-row {
+    display: none;
+}
+
+.chat-convo .chat-input-row td {
+    margin: 10px 5px;
+}
+.chat-convo .chat-message-input {
+    width: 100%;
+    height: 4em;
+}
+
+.chat-convo a.chat-send-button {
+/*    float: right; */
+}
+
+.chat-convo .chat-bottom-row {
+    margin-top: 10px;
+    font-size: 80%;
+}
+
+.chat-convo .chat-status {
+    float: left;
+}
+
+.chat-convo .chat-secure {
+    float: right;
+}
+
+.chat-convo .chat-bottom {
+    clear: both;
+}
+
+.chat-convo .chat-system-message {
+    clear: both;
+}
+
+.chat-convo .chat-system-message-typing {
+    color: #999;
+}
+
+.chat-convo .chat-system-message-error  {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #aaa;
+    background-color: #ffd;
+    font-size: 80%;
+    color: #900;
+}
+
+.chat-convo .chat-system-message-info  {
+    padding: 10px 0;
+    color: #666;
+    font-style: italic;
+}
+
+.chat-convo .chat-system-message-split  {
+    padding: 10px 0;
+    color: #666;
+    font-style: italic;
+    border-top: #999 dashed 1px
+}
+
